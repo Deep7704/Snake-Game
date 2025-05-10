@@ -1,11 +1,11 @@
 let inputDir = { x: 0, y: 0 };
 const foodSound = new Audio('food.mp3');
-const gameOverSound = new Audio('game over.mp3');
-const backmusicSound = new Audio('/Media/backmusic.mp3');
+const gameOverSound = new Audio('gameover.mp3');
+const backmusicSound = new Audio('bgmusic.mp3');
 backmusicSound.loop = true; //  Makes the music play repeatedly
 const movementSound = new Audio('movement.mp3');
 // let play = document.getElementById('play');
-let audioElement = new Audio('backmusic.mp3');
+let audioElement = new Audio('bgmusic.mp3');
 let masterPlay = document.getElementById('masterPlay');
 // const oncegamePlay = document.getElementById('oncegamePlay');
 let score = 0;
