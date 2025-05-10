@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>snake game</title>
+    <link rel="stylesheet" href="css/hard.css">
+</head>
+<body>
+
+    <div class="container">
+<div class="gamePlay">
+    <div class="body">
+        <div class="box" id="box-1"></div>
+        <div class="box" id="box-2"></div>
+        <div class="box" id="box-3"></div>
+        <div class="box" id="box-4"></div>
+        <h1> SNAKE MENIA</h1>
+        <button class="easy"><a href="landing.html">Back to Menu</a></button>
+        <button class="mod"><a href="moderate.html"></a></button>
+        <div id="scoreBox">SCORE : 0</div>
+        <div id="HIGHSCOREBox">HIGHSCORE    : 0</div>
+         <div id="board"></div>
+        <!-- <button class="btn">START GAME</button> -->
+<i class="far fa-x fa-ply-circle" id="masterPlay"></i>
+<!-- 
+<div class="icons">
+    <i class="far fa-2x fa-play-circle"></i>
+  </div> -->
+    </div>
+    </div>
+    </div>
+    <script src="https://kit.fontawesome.com/26504e4a1f.js" crossorigin="anonymous"></script>
+
+<!-- <script src="js/index.js"></script> -->
+
+
+<!-- JS PART-->
+<script>
+let inputDir = {x: 0 , y: 0};
+const foodSound= new Audio('food.mp3');
+const gameOverSound= new Audio('game over.mp3');
+const backmusicSound= new Audio('backmusic.mp3');
+const movementSound=new Audio('movement.mp3');
+// let play = document.getElementById('play');
+let audioElement = new Audio('backmusic.mp3');
+let masterPlay = document.getElementById('masterPlay');
+// const oncegamePlay = document.getElementById('oncegamePlay');
+let score = 0;
+let speed= 12;
+let lastPaintTime = 0;
+let snakeArr= [
+    {x: 13,y: 15}
+]
+
+food= {x: 6, y: 7};
+
+
+//game function
+function main(ctime) {
+    window.requestAnimationFrame(main);
+    //console.log(ctime)
+    if((ctime - lastPaintTime)/1000 < 1/speed){
+        return;
+    }
+    lastPaintTime = ctime;
+    gameEngine();
+}
+
+
+
+function isCollaide(snake){
+    //if you  bump into yourself
+    for(let i = 1; i < snakeArr.length; i++){
+        if(snake[i].x === snake[0].x && snake[i].y === snake[0].y){
+            return true;
+        }
+    }
+    //if you bump into wall
+        if(snake[0].x >= 19 || snake[0].x <= -1 || snake[0].y >= 19 || snake[0].y <= -1){
+            return true;
+        }
+    return false;
+}
+function gameEngine(){
+    //part 1: update snake array & food
+    if(isCollaide(snakeArr)){
+        gameOverSound.play();
+        // backmusicSound.play();
+        inputDir = {x: 0 , y: 0};
+        alert("Game Over.press  any key to play again");
+        snakeArr = [{x: 13,y: 15}];
+        score = 0;
+        backmusicSound.play();
+    
+  
+}
+
+
+//if you have eaten food ,increment score and regenerate function
+if(snakeArr[0].y === food.y && snakeArr[0].x === food.x){
+    snakeArr.unshift({x: snakeArr[0].x + inputDir.x ,y: snakeArr[0].y + inputDir.y});
+    foodSound.play();
+    score +=1;
+    if(score > HIGHSCOREval){
+        HIGHSCOREval = score;
+        localStorage.setItem("HIGHSCORE : ", JSON.stringify(HIGHSCOREval));
+        HIGHSCOREBox.innerHTML = "HIGHSCORE :" + HIGHSCOREval;
+    }
+    scoreBox.innerHTML = "Score : " + score;  
+    let a = 2;
+    let b = 16;
+    food = {x: 2 + Math.round(a + (b - a)* Math.random()), y: 2 + Math.round(a + (b - a)* Math.random())}
+}
+
+//move snake
+for (let i= snakeArr.length - 2; i>=0; i--) {
+    snakeArr[i+1] = {...snakeArr[i]};
+}
+
+snakeArr[0].x += inputDir.x;
+snakeArr[0].y += inputDir.y;
+
+//part 2 display anake and food
+    // display snake
+    board.innerHTML="";
+    snakeArr.forEach((e, index)=>{
+        // backmusicSound.play();
+        snakeElement=document.createElement('div');
+        snakeElement.style.gridRowStart = e.y;
+        snakeElement.style.gridColumnStart =e.x;
+        snakeElement.classList.add('snake');
+        if(index === 0){
+            snakeElement.classList.add('snake');
+        }
+        else{
+            snakeElement.classList.add('head');
+        }
+        board.appendChild(snakeElement);
+
+    });
+
+    //part 2:displayfood
+    foodElement = document.createElement('div');
+    foodElement.style.gridRowStart =food.y;
+    foodElement.style.gridColumnStart =food.x;
+    foodElement.classList.add('food')
+    board.appendChild(foodElement);
+}
+
+
+
+
+
+
+// masterPlay.addEventListener('click',()=>{
+//     if(audioElement.paused || audioElement.currentTime<=0){
+//         play.play('game')
+//         masterPlay.classList.remove('fa-play-circle');  
+//         masterPlay.classList.add('fa-pause-circle');
+//         // gif.style.opacity=1;
+
+//     }
+             
+// else{
+//     play.pause('game');
+//     masterPlay.classList.remove('fa-pause-circle');  
+//     masterPlay.classList.add('fa-play-circle');
+//     // gif.style.opacity=0;
+
+// }
+// })
+        
+// alert("if you want to play snake game then click here..!")
+//main logi of game
+
+let HIGHSCORE = localStorage.getItem("HIGHSCORE : ");
+if(HIGHSCORE === null){
+    HIGHSCOREval = 0;
+    localStorage.setItem("HIGHSCORE",JSON.stringify(HIGHSCOREval))
+}
+else{
+    HIGHSCOREval = JSON.parse(HIGHSCORE);
+    HIGHSCOREBox.innerHTML = "HIGHSCORE : " + HIGHSCORE;
+}
+window.requestAnimationFrame(main);
+window.addEventListener('keydown', e =>{
+    inputDir = {x: 0, y: 1}
+    movementSound.play();
+    switch (e.key){
+        case "ArrowUp":
+            console.log("ArrowUp")
+            inputDir.x = 0;
+            inputDir.y = -1;
+            break;
+
+        case "ArrowDown":
+            console.log("ArrowDown")
+            inputDir.x = 0;
+            inputDir.y = 1;
+            break;
+
+        case "ArrowLeft":
+            console.log("ArrowLeft")
+            inputDir.x = -1;
+            inputDir.y = 0;
+            break;
+
+        case "ArrowRight":
+            console.log("ArrowRight")
+            inputDir.x = 1;
+            inputDir.y = 0;
+            break;
+        default:
+            break;
+
+    }
+});
+</script>
+</body>
+
+
+</html>

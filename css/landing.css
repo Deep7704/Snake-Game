@@ -1,0 +1,125 @@
+
+body{
+    /* background-image: url("../bg.jpg"); */
+    min-height:100vh ;
+    background-size: 100vw 100vh;
+    background-image: url('../Media/snake.jpg');
+    /* width:1500px; */
+    background-size:cover ;
+    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Bakbak One', cursive;
+}
+h1{
+    color: red;
+    /* margin-right: 760px; */
+
+}
+
+.easy a{
+    position: absolute;
+    top: 350px;
+    left:90px;
+    font-size: 40px;
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: rgb(194, 191, 47);
+    font-weight: bolder;
+}
+.easy a::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    color: green;
+    background: wheat;
+    border-radius: 5px;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+.easy a:hover{
+    background-color: white;
+    color: blue;
+}
+.easy a:hover::after {
+    transform: scaleX(1);
+
+}
+button{
+    margin: 50px;
+    
+}
+.hard{
+    margin-top: 550px;
+}
+.hard a {
+    position: absolute;
+    top: 550px;
+    left:90px;
+    font-size: 40px;
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: rgb(194, 191, 47);
+    font-weight: bolder;
+}
+.hard a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    color: green;
+    background: blue;
+    border-radius: 5px;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.hard a:hover{
+    background-color: red;
+    color:black;
+}
+.hard a:hover::after {
+    transform: scaleX(1);
+
+}
+.mod a{
+    position: absolute;
+    top: 450px;
+    left:90px;
+    font-size: 40px;
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: rgb(194, 191, 47);
+    font-weight: bolder;
+}
+.mod a::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    color: green;
+    background: red;
+    border-radius: 5px;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.mod a:hover{
+    background-color: orange;
+    color: white;
+}
+.mod a:hover::after {
+    transform: scaleX(1);
+}
